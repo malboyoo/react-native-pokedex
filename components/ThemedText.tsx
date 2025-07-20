@@ -48,9 +48,10 @@ const styles = StyleSheet.create({
 type Props = TextProps & {
   variant?: keyof typeof styles;
   color?: keyof (typeof Colors)["light"];
+  capitalize?: boolean;
 };
 
-export function ThemedText({ variant = "body3", color = "grayDark", style, ...props }: Props) {
+export function ThemedText({ variant = "body3", color = "grayDark", style, capitalize, ...props }: Props) {
   const theme = useThemeColors();
-  return <Text style={[styles[variant], { color: theme[color] }, style]} {...props} />;
+  return <Text style={[styles[variant], { color: theme[color] }, capitalize && { textTransform: "capitalize" }, style]} {...props} />;
 }

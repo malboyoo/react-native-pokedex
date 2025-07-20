@@ -1,3 +1,4 @@
+import { PokemonI, PokemonSpecieI } from "@/interface/pokemon";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const endpoint = "https://pokeapi.co/api/v2/";
@@ -12,14 +13,16 @@ type API = {
       url: string;
     }[];
   };
+  "/pokemon/[id]": PokemonI;
+  "/pokemon-species/[id]": PokemonSpecieI;
 };
 
-export function useFetchQuery<T extends keyof API>(path: T) {
+export function useFetchQuery<T extends keyof API>(path: T, params?: Record<string, string | number>) {
+  const localUrl = params ? endpoint + path.replace("[id]", params.id as string) : endpoint + path;
   return useQuery({
-    queryKey: [path],
+    queryKey: [localUrl],
     queryFn: async () => {
-      await wait(1000);
-      const response = await fetch(endpoint + path);
+      const response = await fetch(localUrl);
       return response.json() as Promise<API[T]>;
     },
   });
@@ -30,14 +33,9 @@ export function useInfiniteFetchQuery<T extends keyof API>(path: T) {
     queryKey: [path],
     initialPageParam: endpoint + path,
     queryFn: async ({ pageParam }) => {
-      await wait(1000);
       const response = await fetch(pageParam);
       return response.json() as Promise<API[T]>;
     },
     getNextPageParam: (lastPage, pages) => lastPage.next,
   });
-}
-
-function wait(ms: number = 1000) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }

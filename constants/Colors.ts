@@ -17,6 +17,7 @@ export const Colors = {
   },
   type: {
     bug: "#A7B723",
+    water: "#6493EB",
     dark: "#75574C",
     dragon: "#6F38F8",
     electric: "#F9CF30",
