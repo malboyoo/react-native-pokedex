@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "wow-pet-dex",
-    "slug": "wow-pet-dex",
+    "name": "react-native-pokedex",
+    "slug": "react-native-pokedex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
