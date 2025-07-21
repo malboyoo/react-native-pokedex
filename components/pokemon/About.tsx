@@ -20,7 +20,7 @@ export function About({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
             <Row gap={8} style={styles.infoItemRow}>
               <Image source={require("@/assets/images/weight.png")} width={16} height={16} />
               <ThemedText variant="body3" color="grayDark">
-                {pokemon?.weight ? (pokemon.weight / 10).toFixed(1).replace(".", ",") : "0,0"} kg
+                {pokemon?.weight ? (pokemon.weight / 10).toFixed(1).replace(".", ",") : "--"} kg
               </ThemedText>
             </Row>
             <ThemedText variant="caption" color="grayMedium">
@@ -32,7 +32,7 @@ export function About({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
             <Row gap={8} style={styles.infoItemRow}>
               <Image source={require("@/assets/images/straighten.png")} width={16} height={16} />
               <ThemedText variant="body3" color="grayDark">
-                {pokemon?.height ? (pokemon.height / 10).toFixed(1).replace(".", ",") : "0,0"} m
+                {pokemon?.height ? (pokemon.height / 10).toFixed(1).replace(".", ",") : "--"} m
               </ThemedText>
             </Row>
             <ThemedText variant="caption" color="grayMedium">

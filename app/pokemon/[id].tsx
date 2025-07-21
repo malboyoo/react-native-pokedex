@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   descriptionContainer: {
+    minHeight: 32,
     paddingHorizontal: 12,
     paddingTop: 8,
   },
