@@ -23,6 +23,16 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 32,
   },
+  headline2: {
+    fontSize: 20,
+    fontWeight: "700",
+    lineHeight: 28,
+  },
+  headline3: {
+    fontSize: 16,
+    fontWeight: "700",
+    lineHeight: 20,
+  },
   caption: {
     fontSize: 8,
     fontWeight: "400",

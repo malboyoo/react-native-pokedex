@@ -1,21 +1,38 @@
 import { Colors } from "@/constants/Colors";
 import { PokemonI } from "@/interface/pokemon";
 import { getStatShortname } from "@/utils/getStatShortname";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Row } from "../Row";
 import { ThemedText } from "../ThemedText";
+import { AnimatedStatBar } from "./AnimatedStatBar";
+
+const baseStats = [
+  { stat: { name: "hp" }, base_stat: 1 },
+  { stat: { name: "attack" }, base_stat: 1 },
+  { stat: { name: "defense" }, base_stat: 1 },
+  { stat: { name: "special-attack" }, base_stat: 1 },
+  { stat: { name: "special-defense" }, base_stat: 1 },
+  { stat: { name: "speed" }, base_stat: 1 },
+];
 
 export function Stats({ pokemon, colorType }: { pokemon: PokemonI; colorType: string }) {
+  const [stats, setStats] = useState<PokemonI["stats"]>(pokemon?.stats || baseStats);
+
+  useEffect(() => {
+    setStats(pokemon?.stats || baseStats);
+  }, [pokemon?.stats]);
+
   return (
     <View style={styles.statsContainer}>
       <Row style={styles.statTitle}>
-        <ThemedText variant="subtitle1" style={{ color: colorType }}>
+        <ThemedText variant="headline3" style={{ color: colorType }}>
           Base Stats
         </ThemedText>
       </Row>
       <Row>
         <View style={styles.statNameContainer}>
-          {pokemon?.stats.map((stat) => (
+          {stats.map((stat) => (
             <View key={stat.stat.name} style={styles.statName}>
               <ThemedText key={stat.stat.name} variant="body3" style={{ color: colorType, fontWeight: "bold", textAlign: "right" }}>
                 {getStatShortname(stat.stat.name)}
@@ -24,7 +41,7 @@ export function Stats({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
           ))}
         </View>
         <View style={styles.statValueContainer}>
-          {pokemon?.stats.map((stat) => (
+          {stats.map((stat) => (
             <Row key={stat.stat.name}>
               <View style={styles.statValue}>
                 <ThemedText key={stat.stat.name} variant="body3" color="grayDark">
@@ -32,9 +49,7 @@ export function Stats({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
                 </ThemedText>
               </View>
 
-              <View style={styles.statBar}>
-                <View style={[styles.statBarFill, { width: `${(stat.base_stat / 250) * 100}%`, backgroundColor: colorType }]}></View>
-              </View>
+              <AnimatedStatBar key={stat.stat.name} value={stat.base_stat} colorType={colorType} />
             </Row>
           ))}
         </View>
@@ -69,21 +84,5 @@ const styles = StyleSheet.create({
   statValue: {
     height: 16,
     paddingHorizontal: 12,
-  },
-  statBar: {
-    position: "relative",
-    flex: 1,
-    height: 4,
-    borderRadius: 4,
-    backgroundColor: Colors.light.grayLight,
-  },
-  statBarFill: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: 4,
-    zIndex: 10,
-    borderTopLeftRadius: 4,
-    borderBottomLeftRadius: 4,
   },
 });

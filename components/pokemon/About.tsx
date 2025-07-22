@@ -9,7 +9,7 @@ export function About({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
     <View>
       {/* About */}
       <View style={styles.aboutTitle}>
-        <ThemedText variant="subtitle1" style={{ color: colorType }}>
+        <ThemedText variant="headline3" style={{ color: colorType }}>
           About
         </ThemedText>
       </View>
@@ -42,8 +42,8 @@ export function About({ pokemon, colorType }: { pokemon: PokemonI; colorType: st
 
           <View style={[styles.infoItem, { borderRightWidth: 0, height: 48 }]}>
             {pokemon?.moves.slice(0, 2).map((move) => (
-              <ThemedText key={move.move.name} variant="body3" color="grayDark" style={{ lineHeight: 13 }} capitalize>
-                {move.move.name}
+              <ThemedText key={move.move?.name} variant="body3" color="grayDark" style={{ lineHeight: 13 }} capitalize>
+                {move.move?.name}
               </ThemedText>
             ))}
             <ThemedText variant="caption" color="grayMedium">
